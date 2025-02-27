@@ -1,0 +1,19 @@
+[project]
+name = "circuit-breaker-lab"
+version = "0.1.0"
+description = "Simple Circuit Breaker demo"
+readme = "README.md"
+authors = [
+    { name = "Marcin Witowski", email = "mars3n@protonmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "flask>=3.1.0",
+]
+
+[project.scripts]
+app = "circuit_breaker_lab:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

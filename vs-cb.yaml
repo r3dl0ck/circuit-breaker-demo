@@ -1,0 +1,23 @@
+---
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: cb-vs
+spec:
+  hosts:
+  - "*"
+  gateways:
+  - cb-gateway
+  http:
+  - match:
+    - uri:
+        exact: /
+    route:
+    - destination:
+        host: cb
+        port:
+          number: 8080
+    retries:
+      attempts: 10
+      perTryTimeout: 1s
+      retryOn: 5xx

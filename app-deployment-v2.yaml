@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: cb
+    version: v2
+  name: cb-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cb
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: cb
+        version: v2
+      annotations:
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+      - name: cb
+        image: docker.io/devopstestaccount/circuit-breaker:1.0
+        command: ["uv", "run", "app", "--message='Hello World v2'", "--rate-limit-period=1", "--max-requests=10000"]
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        securityContext:
+          privileged: false

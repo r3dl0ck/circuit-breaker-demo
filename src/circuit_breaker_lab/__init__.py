@@ -31,9 +31,9 @@ def hello():
         if request_count < MAX_REQUESTS:
             request_count += 1
             last_request_time = current_time
-            return "Hello World!\n"
+            return f"{MESSAGE}\n"
         else:
-            return "Too many requests\n", 429
+            return "Too many requests\n", 500
 
 
 @app.route("/health")
@@ -69,6 +69,11 @@ def main() -> None:
                         default=int(os.getenv('MAX_REQUEST', 1)),
                         help='Max requests allowed in rate limit period')
 
+    parser.add_argument('--message', dest='message', type=str,
+                        default="Hello World!",
+                        help='Reply message')
+
+
     args = parser.parse_args()
 
     # Configure logging
@@ -77,7 +82,9 @@ def main() -> None:
 
     global MAX_REQUESTS
     global RATE_LIMIT_PERIOD
+    global MESSAGE
     MAX_REQUESTS = args.max_requests
     RATE_LIMIT_PERIOD = args.rate_limit_period
+    MESSAGE = args.message
 
     app.run(host=args.host, port=args.flask_port, debug=args.flask_debug, use_reloader=False)

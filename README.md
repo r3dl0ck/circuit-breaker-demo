@@ -5,6 +5,9 @@
 ```
 $ docker build . -t docker.io/devopstestaccount/circuit-breaker:1.0
 $ docker push docker.io/devopstestaccount/circuit-breaker:1.0
+
+$ docker build . -t quay.io/mmqaz/circuit-breaker:1.0
+$ docker push quay.io/mmqaz/circuit-breaker:1.0
 ```
 
 ## Start

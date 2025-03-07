@@ -14,4 +14,7 @@ RUN uv sync --frozen
 
 EXPOSE 8080
 
+RUN chgrp -R 0 /app && \
+    chmod -R g=u /app
+
 ENTRYPOINT ["uv", "run", "app"]
